@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recruit.mapper.UserMapper">
+
+    <select id="getByAccountAndRole" resultType="com.recruit.entity.User">
+        select id, username, password, phone, email, role, avatar, status, create_time, update_time
+        from `user`
+        where role = #{role}
+        <choose>
+            <when test="role == 0">
+                and (phone = #{account} or email = #{account})
+            </when>
+            <when test="role == 1">
+                and (email = #{account} or phone = #{account})
+            </when>
+            <when test="role == 2">
+                and (username = #{account} or email = #{account} or phone = #{account})
+            </when>
+            <otherwise>
+                and 1 = 0
+            </otherwise>
+        </choose>
+        limit 1
+    </select>
+
+    <select id="getById" resultType="com.recruit.entity.User">
+        select id, username, phone, email, role, avatar, status, create_time, update_time
+        from `user`
+        where id = #{id}
+    </select>
+
+    <select id="list" resultType="com.recruit.entity.User">
+        select id, username, phone, email, role, avatar, status, create_time, update_time
+        from `user`
+        <where>
+            <if test="role != null">
+                and role = #{role}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and (username like concat('%', #{keyword}, '%')
+                    or phone like concat('%', #{keyword}, '%')
+                    or email like concat('%', #{keyword}, '%'))
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <update id="updateStatus">
+        update `user`
+        set status = #{status}, update_time = now()
+        where id = #{id}
+    </update>
+</mapper>

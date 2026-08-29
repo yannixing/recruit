@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recruit.mapper.DeliveryMapper">
+
+    <sql id="deliveryVoColumns">
+        d.id, d.job_id, d.user_id, d.resume_id, d.status, d.status_remark,
+        d.delivery_time, d.view_time, d.interview_time, d.offer_time, d.create_time, d.update_time,
+        j.title as job_title, j.salary_min, j.salary_max, j.city,
+        c.company_name, r.name as resume_name, r.phone as candidate_phone,
+        r.email as candidate_email, r.education, r.school, r.skill
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into delivery (
+            job_id, user_id, resume_id, status, status_remark,
+            delivery_time, create_time, update_time
+        ) values (
+            #{jobId}, #{userId}, #{resumeId}, #{status}, #{statusRemark},
+            #{deliveryTime}, #{createTime}, #{updateTime}
+        )
+    </insert>
+
+    <select id="countByJobAndUser" resultType="java.lang.Long">
+        select count(1) from delivery where job_id = #{jobId} and user_id = #{userId}
+    </select>
+
+    <select id="getById" resultType="com.recruit.entity.Delivery">
+        select id, job_id, user_id, resume_id, status, status_remark, delivery_time, view_time,
+               interview_time, offer_time, create_time, update_time
+        from delivery
+        where id = #{id}
+    </select>
+
+    <select id="getVoById" resultType="com.recruit.vo.DeliveryVO">
+        select <include refid="deliveryVoColumns"/>
+        from delivery d
+        left join job j on j.id = d.job_id
+        left join company c on c.id = j.company_id
+        left join resume r on r.id = d.resume_id
+        where d.id = #{id}
+    </select>
+
+    <select id="listByUserId" resultType="com.recruit.vo.DeliveryVO">
+        select <include refid="deliveryVoColumns"/>
+        from delivery d
+        left join job j on j.id = d.job_id
+        left join company c on c.id = j.company_id
+        left join resume r on r.id = d.resume_id
+        where d.user_id = #{userId}
+        <if test="status != null">
+            and d.status = #{status}
+        </if>
+        order by d.delivery_time desc
+    </select>
+
+    <select id="listByHrId" resultType="com.recruit.vo.DeliveryVO">
+        select <include refid="deliveryVoColumns"/>
+        from delivery d
+        left join job j on j.id = d.job_id
+        left join company c on c.id = j.company_id
+        left join resume r on r.id = d.resume_id
+        inner join `user` u on u.id = d.user_id and u.status = 1
+        where j.hr_id = #{hrId}
+        <if test="jobId != null">
+            and d.job_id = #{jobId}
+        </if>
+        <if test="status != null">
+            and d.status = #{status}
+        </if>
+        order by d.delivery_time desc
+    </select>
+
+    <update id="updateStatus">
+        update delivery
+        <set>
+            <if test="status != null">status = #{status},</if>
+            <if test="statusRemark != null">status_remark = #{statusRemark},</if>
+            <if test="viewTime != null">view_time = #{viewTime},</if>
+            <if test="interviewTime != null">interview_time = #{interviewTime},</if>
+            <if test="offerTime != null">offer_time = #{offerTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

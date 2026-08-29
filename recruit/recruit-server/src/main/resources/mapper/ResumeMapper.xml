@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recruit.mapper.ResumeMapper">
+
+    <select id="listByUserId" resultType="com.recruit.entity.Resume">
+        select id, user_id, name, gender, birth_date, phone, email, address, education, school,
+               major, work_experience, project_experience, skill, self_evaluation, attachment,
+               is_default, status, create_time, update_time
+        from resume
+        where user_id = #{userId} and status = 1
+        order by is_default desc, update_time desc
+    </select>
+
+    <select id="getById" resultType="com.recruit.entity.Resume">
+        select id, user_id, name, gender, birth_date, phone, email, address, education, school,
+               major, work_experience, project_experience, skill, self_evaluation, attachment,
+               is_default, status, create_time, update_time
+        from resume
+        where id = #{id}
+    </select>
+
+    <select id="getByIdAndUserId" resultType="com.recruit.entity.Resume">
+        select id, user_id, name, gender, birth_date, phone, email, address, education, school,
+               major, work_experience, project_experience, skill, self_evaluation, attachment,
+               is_default, status, create_time, update_time
+        from resume
+        where id = #{id} and user_id = #{userId}
+        limit 1
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into resume (
+            user_id, name, gender, birth_date, phone, email, address, education,
+            school, major, work_experience, project_experience, skill,
+            self_evaluation, attachment, is_default, status, create_time, update_time
+        ) values (
+            #{userId}, #{name}, #{gender}, #{birthDate}, #{phone}, #{email}, #{address}, #{education},
+            #{school}, #{major}, #{workExperience}, #{projectExperience}, #{skill},
+            #{selfEvaluation}, #{attachment}, #{isDefault}, #{status}, #{createTime}, #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        update resume
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="birthDate != null">birth_date = #{birthDate},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="education != null">education = #{education},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="major != null">major = #{major},</if>
+            <if test="workExperience != null">work_experience = #{workExperience},</if>
+            <if test="projectExperience != null">project_experience = #{projectExperience},</if>
+            <if test="skill != null">skill = #{skill},</if>
+            <if test="selfEvaluation != null">self_evaluation = #{selfEvaluation},</if>
+            <if test="attachment != null">attachment = #{attachment},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id} and user_id = #{userId} and status = 1
+    </update>
+
+    <update id="deleteByIdAndUserId">
+        update resume
+        set status = 0, is_default = 0, update_time = now()
+        where id = #{id} and user_id = #{userId} and status = 1
+    </update>
+
+    <update id="clearDefaultByUserId">
+        update resume
+        set is_default = 0, update_time = now()
+        where user_id = #{userId} and status = 1
+    </update>
+
+    <update id="setDefault">
+        update resume
+        set is_default = 1, update_time = now()
+        where id = #{id} and user_id = #{userId} and status = 1
+    </update>
+</mapper>

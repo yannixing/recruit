@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recruit.mapper.NotificationMapper">
+
+    <select id="listByUserId" resultType="com.recruit.entity.Notification">
+        select id, user_id, type, title, content, biz_id, is_read, read_time, create_time
+        from notification
+        where user_id = #{userId}
+        order by create_time desc
+    </select>
+
+    <select id="listForHr" resultType="com.recruit.entity.Notification">
+        select n.id, n.user_id, n.type, n.title, n.content, n.biz_id, n.is_read, n.read_time, n.create_time
+        from notification n
+        where n.user_id = #{hrId}
+          and (
+              n.type not in (1, 2)
+              or (
+                  n.type = 1
+                  and exists (
+                      select 1
+                      from delivery d
+                      inner join `user` u on u.id = d.user_id and u.status = 1
+                      where d.id = n.biz_id
+                  )
+              )
+              or (
+                  n.type = 2
+                  and exists (
+                      select 1
+                      from interview i
+                      inner join delivery d on d.id = i.delivery_id
+                      inner join `user` u on u.id = d.user_id and u.status = 1
+                      where i.id = n.biz_id
+                  )
+              )
+          )
+        order by n.create_time desc
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into notification (
+            user_id, type, title, content, biz_id, is_read, read_time, create_time
+        ) values (
+            #{userId}, #{type}, #{title}, #{content}, #{bizId}, #{isRead}, #{readTime}, #{createTime}
+        )
+    </insert>
+
+    <update id="markRead">
+        update notification
+        set is_read = 1, read_time = now()
+        where id = #{id} and user_id = #{userId}
+    </update>
+</mapper>

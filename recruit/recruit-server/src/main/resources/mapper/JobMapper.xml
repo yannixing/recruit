@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recruit.mapper.JobMapper">
+
+    <sql id="jobEntityColumns">
+        id, company_id, hr_id, title, category, salary_min, salary_max, city,
+        work_experience, education, job_description, requirement, benefits,
+        delivery_count, view_count, status, audit_remark, create_time, update_time
+    </sql>
+
+    <sql id="jobVoColumns">
+        j.id, j.company_id, j.hr_id, j.title, j.category, j.salary_min, j.salary_max, j.city,
+        j.work_experience, j.education, j.job_description, j.requirement, j.benefits,
+        count(d.id) as delivery_count, j.view_count, j.status, j.audit_remark, j.create_time, j.update_time,
+        c.company_name as company_name, c.short_name as short_name, c.industry, c.company_size as company_size,
+        c.logo, c.address, c.website, c.description as company_description
+    </sql>
+
+    <sql id="jobVoGroupColumns">
+        j.id, j.company_id, j.hr_id, j.title, j.category, j.salary_min, j.salary_max, j.city,
+        j.work_experience, j.education, j.job_description, j.requirement, j.benefits,
+        j.view_count, j.status, j.audit_remark, j.create_time, j.update_time,
+        c.company_name, c.short_name, c.industry, c.company_size, c.logo, c.address, c.website, c.description
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into job (
+            company_id, hr_id, title, category, salary_min, salary_max, city,
+            work_experience, education, job_description, requirement, benefits,
+            status, create_time, update_time
+        ) values (
+            #{companyId}, #{hrId}, #{title}, #{category}, #{salaryMin}, #{salaryMax}, #{city},
+            #{workExperience}, #{education}, #{jobDescription}, #{requirement}, #{benefits},
+            #{status}, #{createTime}, #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        update job
+        <set>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="salaryMin != null">salary_min = #{salaryMin},</if>
+            <if test="salaryMax != null">salary_max = #{salaryMax},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="workExperience != null">work_experience = #{workExperience},</if>
+            <if test="education != null">education = #{education},</if>
+            <if test="jobDescription != null">job_description = #{jobDescription},</if>
+            <if test="requirement != null">requirement = #{requirement},</if>
+            <if test="benefits != null">benefits = #{benefits},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="auditRemark != null">audit_remark = #{auditRemark},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultType="com.recruit.entity.Job">
+        select <include refid="jobEntityColumns"/>
+        from job
+        where id = #{id}
+    </select>
+
+    <select id="getVoById" resultType="com.recruit.vo.JobVO">
+        select <include refid="jobVoColumns"/>
+        from job j
+        left join company c on c.id = j.company_id
+        left join delivery d on d.job_id = j.id
+        where j.id = #{id}
+        group by <include refid="jobVoGroupColumns"/>
+    </select>
+
+    <select id="pageQuery" resultType="com.recruit.vo.JobVO">
+        select <include refid="jobVoColumns"/>
+        from job j
+        left join company c on c.id = j.company_id
+        left join delivery d on d.job_id = j.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (j.title like concat('%', #{keyword}, '%')
+                    or j.category like concat('%', #{keyword}, '%')
+                    or c.company_name like concat('%', #{keyword}, '%'))
+            </if>
+            <if test="city != null and city != ''">
+                and j.city = #{city}
+            </if>
+            <if test="category != null and category != ''">
+                and j.category = #{category}
+            </if>
+            <if test="salaryMin != null">
+                and j.salary_max <![CDATA[ >= ]]> #{salaryMin}
+            </if>
+            <if test="salaryMax != null">
+                and j.salary_min <![CDATA[ <= ]]> #{salaryMax}
+            </if>
+            <if test="status != null">
+                and j.status = #{status}
+            </if>
+            <if test="hrId != null">
+                and j.hr_id = #{hrId}
+            </if>
+        </where>
+        group by <include refid="jobVoGroupColumns"/>
+        order by j.create_time desc
+    </select>
+
+    <select id="listHot" resultType="com.recruit.vo.JobVO">
+        select <include refid="jobVoColumns"/>
+        from job j
+        left join company c on c.id = j.company_id
+        left join delivery d on d.job_id = j.id
+        where j.status = 1
+        group by <include refid="jobVoGroupColumns"/>
+        order by count(d.id) desc, j.view_count desc, j.create_time desc
+        limit 20
+    </select>
+
+    <select id="countDeliveriesByJobId" resultType="java.lang.Long">
+        select count(1) from delivery where job_id = #{jobId}
+    </select>
+
+    <update id="refreshDeliveryCount">
+        update job
+        set delivery_count = (select count(1) from delivery where job_id = #{jobId})
+        where id = #{jobId}
+    </update>
+
+    <update id="incrementViewCount">
+        update job set view_count = view_count + 1 where id = #{jobId}
+    </update>
+
+    <update id="review">
+        update job
+        set status = #{status}, audit_remark = #{auditRemark}, update_time = now()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteByIds">
+        delete from job
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

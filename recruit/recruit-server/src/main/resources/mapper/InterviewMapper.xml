@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recruit.mapper.InterviewMapper">
+
+    <select id="getById" resultType="com.recruit.entity.Interview">
+        select id, delivery_id, hr_id, interviewer, interview_time, duration, location, address_detail,
+               contact_person, contact_phone, remark, status, feedback, create_time, update_time
+        from interview
+        where id = #{id}
+    </select>
+
+    <select id="getVoById" resultType="com.recruit.vo.InterviewVO">
+        select i.id, i.delivery_id, i.hr_id, i.interviewer, i.interview_time, i.duration, i.location,
+               i.address_detail, i.contact_person, i.contact_phone, i.remark, i.status, i.feedback,
+               i.create_time, i.update_time,
+               j.title as job_title, c.company_name, r.name as candidate_name
+        from interview i
+        left join delivery d on d.id = i.delivery_id
+        left join job j on j.id = d.job_id
+        left join company c on c.id = j.company_id
+        left join resume r on r.id = d.resume_id
+        where i.id = #{id}
+    </select>
+
+    <select id="listByUserId" resultType="com.recruit.vo.InterviewVO">
+        select i.id, i.delivery_id, i.hr_id, i.interviewer, i.interview_time, i.duration, i.location,
+               i.address_detail, i.contact_person, i.contact_phone, i.remark, i.status, i.feedback,
+               i.create_time, i.update_time,
+               j.title as job_title, c.company_name, r.name as candidate_name
+        from interview i
+        left join delivery d on d.id = i.delivery_id
+        left join job j on j.id = d.job_id
+        left join company c on c.id = j.company_id
+        left join resume r on r.id = d.resume_id
+        where d.user_id = #{userId}
+        order by i.interview_time desc
+    </select>
+
+    <select id="listByHrId" resultType="com.recruit.vo.InterviewVO">
+        select i.id, i.delivery_id, i.hr_id, i.interviewer, i.interview_time, i.duration, i.location,
+               i.address_detail, i.contact_person, i.contact_phone, i.remark, i.status, i.feedback,
+               i.create_time, i.update_time,
+               j.title as job_title, c.company_name, r.name as candidate_name
+        from interview i
+        left join delivery d on d.id = i.delivery_id
+        left join job j on j.id = d.job_id
+        left join company c on c.id = j.company_id
+        left join resume r on r.id = d.resume_id
+        inner join `user` u on u.id = d.user_id and u.status = 1
+        where i.hr_id = #{hrId}
+        order by i.interview_time desc
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into interview (
+            delivery_id, hr_id, interviewer, interview_time, duration, location,
+            address_detail, contact_person, contact_phone, remark, status, feedback,
+            create_time, update_time
+        ) values (
+            #{deliveryId}, #{hrId}, #{interviewer}, #{interviewTime}, #{duration}, #{location},
+            #{addressDetail}, #{contactPerson}, #{contactPhone}, #{remark}, #{status}, #{feedback},
+            #{createTime}, #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        update interview
+        <set>
+            <if test="interviewer != null">interviewer = #{interviewer},</if>
+            <if test="interviewTime != null">interview_time = #{interviewTime},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="location != null">location = #{location},</if>
+            <if test="addressDetail != null">address_detail = #{addressDetail},</if>
+            <if test="contactPerson != null">contact_person = #{contactPerson},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        update interview
+        set status = #{status},
+            feedback = #{feedback},
+            update_time = now()
+        where id = #{id}
+    </update>
+</mapper>

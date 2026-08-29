@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: recruit
+  profiles:
+    active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    druid:
+      driver-class-name: ${recruit.datasource.driver-class-name}
+      url: jdbc:mysql://${recruit.datasource.host}:${recruit.datasource.port}/${recruit.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${recruit.datasource.username}
+      password: ${recruit.datasource.password}
+  redis:
+    host: ${recruit.redis.host}
+    port: ${recruit.redis.port}
+    password: ${recruit.redis.password}
+    database: ${recruit.redis.database}
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.recruit.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.recruit.mapper: debug
+    com.recruit.service: info
+    com.recruit.controller: info
+
+recruit:
+  jwt:
+    secret-key: please-change-this-jwt-secret
+    ttl: 7200000
+    token-name: token

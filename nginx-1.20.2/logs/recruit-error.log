@@ -1,0 +1,97 @@
+2026/08/16 11:32:38 [notice] 2704#26592: using the "select" event method
+2026/08/16 11:32:38 [notice] 2704#26592: nginx/1.20.2
+2026/08/16 11:32:38 [notice] 2704#26592: start worker processes
+2026/08/16 11:32:38 [notice] 2704#26592: start worker process 15292
+2026/08/16 11:32:38 [notice] 15292#26300: nginx/1.20.2
+2026/08/16 11:32:38 [notice] 15292#26300: create thread 10112
+2026/08/16 11:32:38 [notice] 15292#26300: create thread 3780
+2026/08/16 11:32:38 [notice] 15292#26300: create thread 14816
+2026/08/16 12:19:05 [error] 15292#10112: *7 CreateFile() "D:\Desktop\waimai\recruit\nginx-1.20.2\html/recruit/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 16:14:18 [error] 15292#10112: *372 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/code HTTP/1.1", upstream: "http://127.0.0.1:8080/auth/code", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 16:14:34 [error] 15292#10112: *375 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/code HTTP/1.1", upstream: "http://127.0.0.1:8080/auth/code", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 16:14:45 [error] 15292#10112: *375 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/login HTTP/1.1", upstream: "http://127.0.0.1:8080/auth/login", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 17:16:11 [error] 15292#10112: *485 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/login HTTP/1.1", upstream: "http://127.0.0.1:8080/auth/login", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:36 [error] 15292#10112: *738 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/users HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/users", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:38 [error] 15292#10112: *741 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/users HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/users", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:38 [error] 15292#10112: *738 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/jobs?page=1&pageSize=10 HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/jobs?page=1&pageSize=10", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:39 [error] 15292#10112: *743 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/reviews?page=1&pageSize=10 HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/reviews?page=1&pageSize=10", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:40 [error] 15292#10112: *741 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/users HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/users", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:41 [error] 15292#10112: *738 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/jobs?page=1&pageSize=10 HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/jobs?page=1&pageSize=10", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:41 [error] 15292#10112: *747 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/reviews?page=1&pageSize=10 HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/reviews?page=1&pageSize=10", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:43 [error] 15292#10112: *743 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/users HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/users", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:45 [error] 15292#10112: *747 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/users HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/users", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 19:09:48 [error] 15292#10112: *747 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/admin/users HTTP/1.1", upstream: "http://127.0.0.1:8080/admin/users", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 20:21:09 [error] 15292#10112: *1428 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/hr/jobs?page=1&pageSize=200 HTTP/1.1", upstream: "http://127.0.0.1:8080/hr/jobs?page=1&pageSize=200", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 20:21:12 [error] 15292#10112: *1428 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/hr/jobs?page=1&pageSize=200 HTTP/1.1", upstream: "http://127.0.0.1:8080/hr/jobs?page=1&pageSize=200", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 20:21:14 [error] 15292#10112: *1432 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/hr/jobs?page=1&pageSize=200 HTTP/1.1", upstream: "http://127.0.0.1:8080/hr/jobs?page=1&pageSize=200", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/22 20:21:17 [error] 15292#10112: *1428 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/hr/jobs?page=1&pageSize=200 HTTP/1.1", upstream: "http://127.0.0.1:8080/hr/jobs?page=1&pageSize=200", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/29 15:14:38 [notice] 25116#7800: using the "select" event method
+2026/08/29 15:14:38 [notice] 25116#7800: nginx/1.20.2
+2026/08/29 15:14:38 [notice] 25116#7800: start worker processes
+2026/08/29 15:14:38 [notice] 25116#7800: start worker process 30420
+2026/08/29 15:14:39 [notice] 30420#10540: nginx/1.20.2
+2026/08/29 15:14:39 [notice] 30420#10540: create thread 21756
+2026/08/29 15:14:39 [notice] 30420#10540: create thread 8252
+2026/08/29 15:14:39 [notice] 30420#10540: create thread 14932
+2026/08/29 15:16:33 [notice] 15416#29040: using the "select" event method
+2026/08/29 15:16:33 [notice] 15416#29040: nginx/1.20.2
+2026/08/29 15:16:33 [notice] 15416#29040: start worker processes
+2026/08/29 15:16:33 [notice] 15416#29040: start worker process 26528
+2026/08/29 15:16:34 [notice] 26528#29580: nginx/1.20.2
+2026/08/29 15:16:34 [notice] 26528#29580: create thread 12956
+2026/08/29 15:16:34 [notice] 26528#29580: create thread 14396
+2026/08/29 15:16:34 [notice] 26528#29580: create thread 6860
+2026/08/29 15:21:28 [error] 30420#21756: *1 CreateFile() "D:\Desktop\waimai\recruit\nginx-1.20.2/html/recruit/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8081", referrer: "http://localhost:8081/"
+2026/08/29 15:51:06 [error] 30420#21756: *456 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/code HTTP/1.1", upstream: "http://127.0.0.1:8080/auth/code", host: "127.0.0.1:8081"
+2026/08/29 22:25:47 [notice] 15416#29040: reconfiguring
+2026/08/29 22:25:47 [notice] 15416#29040: using the "select" event method
+2026/08/29 22:25:47 [notice] 15416#29040: start worker processes
+2026/08/29 22:25:47 [notice] 15416#29040: start worker process 20564
+2026/08/29 22:25:48 [notice] 20564#29652: nginx/1.20.2
+2026/08/29 22:25:48 [notice] 20564#29652: create thread 28200
+2026/08/29 22:25:48 [notice] 20564#29652: create thread 30620
+2026/08/29 22:25:48 [notice] 20564#29652: create thread 28628
+2026/08/29 22:25:48 [notice] 26528#29580: gracefully shutting down
+2026/08/29 22:25:48 [notice] 26528#14396: exiting
+2026/08/29 22:25:48 [notice] 26528#12956: exiting
+2026/08/29 22:25:48 [notice] 26528#29580: exit
+2026/08/29 22:25:48 [notice] 15416#29040: worker process 26528 exited with code 0
+2026/08/29 22:26:58 [error] 30420#21756: *582 CreateFile() "D:\Desktop\waimai\recruit\nginx-1.20.2/html/recruit/admin" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /admin HTTP/1.1", host: "127.0.0.1:8081"
+2026/08/29 22:26:59 [error] 30420#21756: *584 "D:\Desktop\waimai\recruit\nginx-1.20.2/html/recruit/admin/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /admin/ HTTP/1.1", host: "127.0.0.1:8081"
+2026/08/29 22:29:42 [notice] 15416#29040: reconfiguring
+2026/08/29 22:29:42 [notice] 15416#29040: using the "select" event method
+2026/08/29 22:29:42 [notice] 15416#29040: start worker processes
+2026/08/29 22:29:42 [notice] 15416#29040: start worker process 15288
+2026/08/29 22:29:42 [notice] 15288#4648: nginx/1.20.2
+2026/08/29 22:29:42 [notice] 20564#29652: gracefully shutting down
+2026/08/29 22:29:42 [notice] 20564#30620: exiting
+2026/08/29 22:29:42 [notice] 15288#4648: create thread 20392
+2026/08/29 22:29:42 [notice] 15288#4648: create thread 15476
+2026/08/29 22:29:42 [notice] 15288#4648: create thread 23928
+2026/08/29 22:29:43 [notice] 20564#28200: exiting
+2026/08/29 22:29:43 [notice] 20564#29652: exit
+2026/08/29 22:29:43 [notice] 15416#29040: worker process 20564 exited with code 0
+2026/08/29 22:30:19 [error] 30420#21756: *585 CreateFile() "D:\Desktop\waimai\recruit\nginx-1.20.2/html/recruit/admin" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /admin HTTP/1.1", host: "127.0.0.1:8081"
+2026/08/29 22:30:20 [error] 30420#21756: *587 "D:\Desktop\waimai\recruit\nginx-1.20.2/html/recruit/admin/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /admin/ HTTP/1.1", host: "127.0.0.1:8081"
+2026/08/29 22:33:18 [notice] 22544#9600: using the "select" event method
+2026/08/29 22:33:18 [notice] 22544#9600: nginx/1.20.2
+2026/08/29 22:33:18 [notice] 22544#9600: start worker processes
+2026/08/29 22:33:18 [notice] 22544#9600: start worker process 21700
+2026/08/29 22:33:18 [notice] 21700#19752: nginx/1.20.2
+2026/08/29 22:33:18 [notice] 21700#19752: create thread 27572
+2026/08/29 22:33:18 [notice] 21700#19752: create thread 30024
+2026/08/29 22:33:18 [notice] 21700#19752: create thread 12256
+2026/08/29 22:34:10 [alert] 21700#27572: *3 "D:\Desktop\waimai\recruit\nginx-1.20.2/html/recruit/admin.htmlindex.html" is not a directory, client: 127.0.0.1, server: localhost, request: "GET /admin/ HTTP/1.1", host: "127.0.0.1:8081"
+2026/08/29 22:36:48 [notice] 22544#9600: reconfiguring
+2026/08/29 22:36:48 [notice] 22544#9600: using the "select" event method
+2026/08/29 22:36:48 [notice] 22544#9600: start worker processes
+2026/08/29 22:36:48 [notice] 22544#9600: start worker process 29664
+2026/08/29 22:36:48 [notice] 29664#12912: nginx/1.20.2
+2026/08/29 22:36:49 [notice] 21700#19752: gracefully shutting down
+2026/08/29 22:36:48 [notice] 29664#12912: create thread 24556
+2026/08/29 22:36:49 [notice] 21700#30024: exiting
+2026/08/29 22:36:48 [notice] 29664#12912: create thread 28136
+2026/08/29 22:36:48 [notice] 29664#12912: create thread 19252
+2026/08/29 22:36:49 [notice] 21700#27572: exiting
+2026/08/29 22:36:49 [notice] 21700#19752: exit
+2026/08/29 22:36:49 [notice] 22544#9600: worker process 21700 exited with code 0
